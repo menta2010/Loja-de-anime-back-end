@@ -20,6 +20,13 @@ public class ProdutosService {
 		return lista;	
 	}
 	
+	public Produtos create(Produtos prod) {
+		prod.setId(null);
+		rep.save(prod);
+		return prod;
+		
+	}
+	
 	
 	
 	
