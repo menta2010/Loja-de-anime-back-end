@@ -1,5 +1,7 @@
 package com.natalino.lojaanime.controller;
 
+
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.natalino.lojaanime.entity.Produtos;
 import com.natalino.lojaanime.services.ProdutosService;
@@ -37,9 +40,11 @@ public class ProdutoController {
 	}
 	
 	@PostMapping
-	ResponseEntity<?>create(@RequestBody Produtos produtos){
-		Produtos produtos1 = prod.create(produtos);
-		return ResponseEntity.ok().body(produtos1);
+	ResponseEntity<Void>create(@RequestBody Produtos produtos){
+		 produtos = prod.create(produtos);
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().
+				  path("/{id}").buildAndExpand(produtos.getId()).toUri();
+			return	ResponseEntity.created(uri).build();
 		
 		
 	}
