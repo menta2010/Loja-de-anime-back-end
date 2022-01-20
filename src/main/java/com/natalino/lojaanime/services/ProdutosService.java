@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.natalino.lojaanime.entity.Produtos;
 import com.natalino.lojaanime.repository.ProdutoRepository;
+import com.natalino.lojaanime.services.exceptions.DataIntegrityException;
 import com.natalino.lojaanime.services.exceptions.ObjetoNaoEncontrado;
 
 @Service
@@ -50,8 +51,7 @@ public class ProdutosService {
 		try {
 		rep.deleteById(id);
 		}catch (DataIntegrityViolationException e) {
-			
-		
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
 	}
 	
