@@ -37,6 +37,11 @@ public class ProdutosService {
 		
 	}
 	
+	public Produtos update(Produtos prod) {
+		return rep.save(prod);
+		
+	}
+	
 	
 	
 	
