@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.natalino.lojaanime.entity.Produtos;
@@ -38,8 +39,20 @@ public class ProdutosService {
 	}
 	
 	public Produtos update(Produtos prod) {
+		findById(prod.getId());
 		return rep.save(prod);
 		
+	}
+	
+	public void delete(Long id) {
+		findById(id);
+		
+		try {
+		rep.deleteById(id);
+		}catch (DataIntegrityViolationException e) {
+			
+		
+		}
 	}
 	
 	
