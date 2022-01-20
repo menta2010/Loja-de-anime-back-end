@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.natalino.lojaanime.entity.Produtos;
 import com.natalino.lojaanime.repository.ProdutoRepository;
+import com.natalino.lojaanime.services.exceptions.ObjetoNaoEncontrado;
 
 @Service
 public class ProdutosService {
@@ -23,7 +24,9 @@ public class ProdutosService {
 	
 	public Produtos findById(Long id) {
 	Optional<Produtos>prod = rep.findById(id);
-	return prod.orElse(null);
+	return prod.orElseThrow(()-> new ObjetoNaoEncontrado(
+			"O objeto não foi encontrado! ID: "+ id + ", tipo: " +Produtos.class.getName() 
+			));
 		
 	}
 	
